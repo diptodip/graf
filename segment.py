@@ -5,9 +5,9 @@ import numpy as np
 import argparse
 import cv2
 
-def segment(img):
-    #threshold with otsu's
-    img = cv2.pyrMeanShiftFiltering(img, 21, 51)
+def segment(image):
+    #threshold with otsu's after meanshift to reduce noise
+    img = image
     cv2.imshow("Shifted", img)
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
@@ -15,7 +15,7 @@ def segment(img):
 
     #perform euclidean distance transform
     distances = ndimage.distance_transform_edt(thresh)
-    localMax = peak_local_max(distances, indices = False, min_distance = 10, labels = thresh)
+    localMax = peak_local_max(distances, indices = False, min_distance = 3, labels = thresh)
 
     #perform connected component analysis on local peaks
     markers = ndimage.label(localMax, structure = np.ones((3, 3)))[0]
@@ -36,11 +36,11 @@ def segment(img):
 
         #draw circle around max size contour
         ((x, y), r) = cv2.minEnclosingCircle(contour)
-        cv2.circle(img, (int(x), int(y)), int(r), (0, 255, 0), 2)
-        cv2.putText(img, "#{}".format(label), (int(x) - 10, int(y)), cv2.FONT_HERSHEY_DUPLEX, 0.6, (0, 0, 255), 2)
+        cv2.circle(image, (int(x), int(y)), int(r), (0, 255, 0), 2)
+        #cv2.putText(image, "#{}".format(label), (int(x) - 10, int(y)), cv2.FONT_HERSHEY_DUPLEX, 0.6, (0, 0, 255), 2)
 
     #show final image
-    cv2.imshow("Output", img)
+    cv2.imshow("Output", image)
     cv2.waitKey(0)
 
 def main():
@@ -49,7 +49,7 @@ def main():
     ap.add_argument("-i", "--image", required = True, help = "path to input image")
     args = vars(ap.parse_args())
 
-    img = cv2.imread(args["image"])
-    segment(img)
+    image = cv2.imread(args["image"])
+    segment(image)
 
 if __name__ == "__main__": main()    
