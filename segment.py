@@ -20,7 +20,7 @@ def segment(img):
     #perform connected component analysis on local peaks
     markers = ndimage.label(localMax, structure = np.ones((3, 3)))[0]
     labels = watershed(-distances, markers, mask = thresh)
-    print("[INFO] {} unique segments found".format(len(np.unique(labels)) - 1))
+    print("[out] {} unique objects found".format(len(np.unique(labels)) - 1))
 
     #loop over labels returned from watershed to mark them
     for label in np.unique(labels):
@@ -37,7 +37,7 @@ def segment(img):
         #draw circle around max size contour
         ((x, y), r) = cv2.minEnclosingCircle(contour)
         cv2.circle(img, (int(x), int(y)), int(r), (0, 255, 0), 2)
-        cv2.putText(img, "#{}".format(label), (int(x) - 10, int(y)), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 2)
+        cv2.putText(img, "#{}".format(label), (int(x) - 10, int(y)), cv2.FONT_HERSHEY_DUPLEX, 0.6, (0, 0, 255), 2)
 
     #show final image
     cv2.imshow("Output", img)
