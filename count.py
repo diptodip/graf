@@ -9,13 +9,10 @@ def segment(image):
     #threshold with otsu's after meanshift to reduce noise
     img = image
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    #clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
-    #gray = clahe.apply(gray)
     cv2.imshow("Equalized", gray)
     #ret, thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
     #print("ret val = {}".format(ret))
-    thresh = cv2.threshold(gray, 104, 255, cv2.THRESH_BINARY)[1]
-    #thresh = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 151, 2)
+    thresh = cv2.threshold(gray, 105, 255, cv2.THRESH_BINARY)[1]
     cv2.imshow("Threshold", thresh)
 
     #perform euclidean distance transform
