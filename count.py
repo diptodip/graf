@@ -4,14 +4,14 @@ from scipy import ndimage
 import numpy as np
 import argparse
 import cv2
+import choose
 
 def segment(image):
     #threshold with otsu's after meanshift to reduce noise
     img = image
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     cv2.imshow("Equalized", gray)
-    #ret, thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
-    #print("ret val = {}".format(ret))
+    threshval = choose.choose(img)
     thresh = cv2.threshold(gray, 105, 255, cv2.THRESH_BINARY)[1]
     cv2.imshow("Threshold", thresh)
 
