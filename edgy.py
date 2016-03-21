@@ -5,15 +5,17 @@ import choose
 import count
 
 def edgy(image):
+    cv2.imshow("Image", image)
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     gray = cv2.GaussianBlur(gray, (1, 1), 0)
     minimum = choose.adjusted_average(image)
     maximum = 120
     edges = cv2.Canny(gray, minimum, maximum)
-    objects = count.segment(edges)
+    kernel = np.ones((3, 3), np.uint8)
+    closed = cv2.morphologyEx(edges, cv2.MORPH_CLOSE, kernel)
+    cv2.imshow("Edge", closed)
+    objects = count.segment(image, closed)
     print("[out] Found {} objects.".format(objects))
-    cv2.imshow("Image", image)
-    cv2.imshow("Edge", edges)
     cv2.waitKey(0)
 
 def main():

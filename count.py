@@ -6,18 +6,10 @@ import argparse
 import cv2
 import choose
 
-def segment(image):
+def segment(image, thresh):
     #threshold with otsu's after meanshift to reduce noise
-    img = image
-    #gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    #blurred = cv2.GaussianBlur(gray, (1, 1), 0)
-    #cv2.imshow("Equalized", gray)
-    #threshval = choose.choose(img)
-    #print("[out] threshold value: {}".format(threshval))
-    #thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY)[1]
-    #cv2.imshow("Threshold", thresh)
-    thresh = image
-
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    
     #perform euclidean distance transform
     distances = ndimage.distance_transform_edt(thresh)
     localMax = peak_local_max(distances, indices = False, min_distance = 3, labels = thresh)
@@ -25,10 +17,8 @@ def segment(image):
     #perform connected component analysis on local peaks
     markers = ndimage.label(localMax, structure = np.ones((3, 3)))[0]
     labels = watershed(-distances, markers, mask = thresh)
-    #print("[out] {} unique objects found".format(len(np.unique(labels)) - 1))
 
     #loop over labels returned from watershed to mark them
-    """
     for label in np.unique(labels):
         if label == 0:
             continue
@@ -41,13 +31,11 @@ def segment(image):
         contour = max(contours, key = cv2.contourArea)
 
         #draw circle around max size contour
-        #((x, y), r) = cv2.minEnclosingCircle(contour)
-        #cv2.circle(image, (int(x), int(y)), int(r), (0, 255, 0), 2)
-        #cv2.putText(image, "#{}".format(label), (int(x) - 10, int(y)), cv2.FONT_HERSHEY_DUPLEX, 0.6, (0, 0, 255), 2)
-    """
+        ((x, y), r) = cv2.minEnclosingCircle(contour)
+        cv2.circle(image, (int(x), int(y)), int(r), (0, 255, 0), 2)
+    
     #show final image
-    #cv2.imshow("Output", image)
-    #cv2.waitKey(0)
+    cv2.imshow("Output", image)
     return len(np.unique(labels) - 1)
 
 def main():
@@ -57,6 +45,6 @@ def main():
     args = vars(ap.parse_args())
 
     image = cv2.imread(args["image"])
-    segment(image)
+    out = segment(image)
 
 if __name__ == "__main__": main() 
