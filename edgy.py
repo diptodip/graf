@@ -12,7 +12,8 @@ def edgy(image):
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     gray = cv2.GaussianBlur(gray, (1, 1), 0)
 
-    # determine background color and maximum brightness
+    # determine adjusted background color and minimum guaranteed
+    # brightness color for spots
     minimum = choose.adjusted_average(image)
     maximum = 120
 

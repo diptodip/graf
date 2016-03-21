@@ -7,7 +7,7 @@ import cv2
 import choose
 
 def segment(image, thresh):
-    #threshold with otsu's after meanshift to reduce noise
+    #preprocess image
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     
     #perform euclidean distance transform
