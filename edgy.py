@@ -14,7 +14,7 @@ def edgy(image):
 
     # determine adjusted background color and minimum guaranteed
     # brightness color for spots
-    minimum = choose.adjusted_average(image)
+    minimum = choose.adjusted_average(gray, True)
     maximum = 120
 
     # perform Canny edge detection
