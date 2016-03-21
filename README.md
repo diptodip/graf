@@ -1,5 +1,5 @@
 # GRAF
 
-## Introduction
+## Vision
 
-This is **``graf``** -- software for counting spots in images.
+This is the collection of image processing scripts using OpenCV and Python for **``graf``**.
