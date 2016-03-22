@@ -4,7 +4,7 @@ import argparse
 import choose
 import count
 
-def edgy(image):
+def graf(image):
     # show original image
     cv2.imshow("Image", image)
 
