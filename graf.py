@@ -37,6 +37,6 @@ def main():
     ap.add_argument("-i", "--image", required = True, help = "path to input image")
     args = vars(ap.parse_args())
     image = cv2.imread(args["image"])
-    edgy(image)
+    graf(image)
 
 if __name__ == "__main__": main()
