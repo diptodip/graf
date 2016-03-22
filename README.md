@@ -20,4 +20,4 @@ For now, there is only the ``-i | --image`` option (which is required) that take
 ![Original image](img/original.png)
 ![Edge detection](img/edges.png)
 ![Highlighted image](img/highlight.png)
-The above images show the output in both the terminal (which shows the counted number of cells) as well as the OpenCV image visualizations that depict the cells detected by **``graf``** and highlight their positions on the image. This example image was taken from [Rifkin Labs](http://labs.biology.ucsd.edu/rifkin/software.html) and all rights to the image belong to them as specified.
+The above images show the output in both the terminal (which shows the counted number of cells) as well as the OpenCV image visualizations that depict the cells detected by **``graf``** and highlight their positions on the image. This example image of *C. elegans* embryos was taken from [Rifkin Labs](http://labs.biology.ucsd.edu/rifkin/software.html) and all rights to the image belong to them as specified.
