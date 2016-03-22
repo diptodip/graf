@@ -12,7 +12,7 @@ Currently, **``graf``** is in early development stages and does not have a GUI. 
 Usage:
     python graf.py (-i | --image <path/to/image>)
 ```
-There is currently only the ``-i | --image`` option (which is required) that takes the image path argument. This is used to specify the image to analyze. Currently image stacks are not supported because **``graf``** is in such early stages of development. This feature will come in a future update. An example of what **``graf``** currently does is shown below.
+For now, there is only the ``-i | --image`` option (which is required) that takes the image path argument. This is used to specify the image to analyze. Image stacks are not supported because **``graf``** is in such early stages of development. This feature will come in a future update. An example of what **``graf``** currently does is shown below.
 
 ### Screenshots
 
