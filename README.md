@@ -19,5 +19,5 @@ There is currently only the ``-i | --image`` option (which is required) that tak
 ![Terminal with graf command](img/terminal.png)
 ![Original image](img/original.png)
 ![Edge detection](img/edges.png)
-![Output image](img/output.png)
+![Highlighted image](img/highlight.png)
 The above images show the output in both the terminal (which shows the counted number of cells) as well as the OpenCV image visualizaitons that depict the cells detected by **``graf``** and highlight their positions on the image. This example image was taken from [Rifkin Labs](http://labs.biology.ucsd.edu/rifkin/software.html) and all rights to the image belong to them as specified.
