@@ -1,0 +1,28 @@
+{
+  "name": "graf",
+  "version": "1.0.0",
+  "description": "A cell-counter for FISH microscopy images.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/diptodip/graf.git"
+  },
+  "keywords": [
+    "graf",
+    "FISH",
+    "cell",
+    "vision"
+  ],
+  "author": "Diptodip",
+  "license": "CC0-1.0",
+  "bugs": {
+    "url": "https://github.com/diptodip/graf/issues"
+  },
+  "homepage": "https://github.com/diptodip/graf#readme",
+  "devDependencies": {
+    "electron-prebuilt": "^0.37.0"
+  }
+}
