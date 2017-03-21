@@ -36,6 +36,7 @@ def segment(image, thresh):
     
     #show final image
     cv2.imshow("Output", image)
+    cv2.imwrite("output/output.jpg", image)
     return len(np.unique(labels) - 1)
 
 def main():
