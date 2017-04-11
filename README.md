@@ -2,17 +2,17 @@
 
 ## Introduction
 
-This is **``graf``**, software for counting cells in FISH microscopy images. **``graf``** uses image processing techniques such as Canny edge detection and watershed thresholding along with connected component analysis to identify/count these cells. This avoids the problem of having to train a learning algorithm, which can waste lab time and also be clunky to use.
+This is **``graf``**, software for counting cells in FISH microscopy images. **``graf``** uses neural network techniques such as convolutional/deconvolutional neural networks along with recurrent neural networks to identify/count single molecule mRNA in 3D images produced via FISH microscopy. This method is designed to reduce the number of training examples required.
 
 ## Usage
 
-Currently, **``graf``** is in early development stages and does not have a GUI. That means **``graf``** must be used from the terminal and also requires a functional installation of OpenCV (in addition to a scientific install of Python). The single script that must be called right now is ``graf.py``. The usage is shown below.
+Currently, **``graf``** is in early development stages and cannot be used. In future, usage of **``graf``** will likely require TensorFlow.
 
 ```
-Usage:
+(Historical) Usage:
     python graf.py (-i | --image <path/to/image>)
 ```
-For now, there is only the ``-i | --image`` option (which is required) that takes the image path argument. This is used to specify the image to analyze. Image stacks are not supported because **``graf``** is in such early stages of development. This feature will come in a future update. An example of what **``graf``** currently does is shown below.
+Prior to the switch to neural networks being implemented, **``graf``** could take images as input and highlight the spots in them using the above command. Examples of this are shown below. Note that currently, this is **not** possible to do in Graf!
 
 ### Screenshots
 
