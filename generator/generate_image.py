@@ -10,6 +10,12 @@ AVERAGE_BRIGHTNESS = 2500
 STDDEV = 250
 
 def generate_image(file_prefix = 'test', save_images = False):
+    """
+    Generate an image stack resembling a patch of a 3D image as found in
+    smFISH microscopy and save it as a NumPy nd-array with a file name specified
+    by file_prefix. Alternatively, save the frames of the stack individually as
+    image files.
+    """
     NUM_SPOTS = randint(25, 40)
     NUM_FRAMES = randint(18, 32)
     I = np.random.normal(AVERAGE_BRIGHTNESS, STDDEV, (NUM_FRAMES, GRID_SIZE, GRID_SIZE)).astype(np.uint16)
@@ -30,6 +36,12 @@ def generate_image(file_prefix = 'test', save_images = False):
             label.save(file_prefix + '_{}_label.tiff'.format(z))
 
 def generate_spot(I, I_, NUM_FRAMES):
+    """
+    Generate a spot on a specific frame along with its label.
+    The spot is placed in the appropriate frames of I and the
+    label for the spot is placed in the corresponding center frame
+    for the spot.
+    """
     max_brightness = 0
     while not (max_brightness > 3000):
         max_brightness = int(round(np.random.normal(2.5 * AVERAGE_BRIGHTNESS, STDDEV)))
