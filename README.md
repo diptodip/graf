@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This is **``graf``**, software for counting cells in FISH microscopy images. **``graf``** uses neural network techniques such as convolutional/deconvolutional neural networks along with recurrent neural networks to identify/count single molecule mRNA in 3D images produced via FISH microscopy. This method is designed to reduce the number of training examples required.
+This is **``graf``**, software for counting cells in FISH microscopy images. **``graf``** uses neural network techniques (i.e. convolutional/deconvolutional and recurrent neural networks) to identify/count single molecule mRNA in 3D images produced via FISH microscopy. This method is designed to reduce the number of training examples required.
 
 ## Usage
 
