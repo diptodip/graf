@@ -3,13 +3,13 @@ from statistics import median
 from math import sqrt
 
 import numpy as np
-from tifffile import imsave
+from PIL import Image
 
 GRID_SIZE = 32
 AVERAGE_BRIGHTNESS = 2500
 STDDEV = 250
 
-def generate_image(file_prefix = 'test'):
+def generate_image(file_prefix = 'test', save_images = False):
     NUM_SPOTS = randint(25, 40)
     NUM_FRAMES = randint(18, 32)
     I = np.random.normal(AVERAGE_BRIGHTNESS, STDDEV, (NUM_FRAMES, GRID_SIZE, GRID_SIZE)).astype(np.uint16)
@@ -19,8 +19,15 @@ def generate_image(file_prefix = 'test'):
     I = np.reshape(I, (NUM_FRAMES, GRID_SIZE, GRID_SIZE), order='A')
     print(I.shape)
     print(NUM_SPOTS)
-    imsave(file_prefix + '.tiff', I)
-    imsave(file_prefix + '_label.tiff', I_)
+    if not save_images:
+        np.save(file_prefix, I)
+        np.save(file_prefix + '_label', I_)
+    else:
+        for z in range(NUM_FRAMES):
+            frame = Image.fromarray(I[z,:,:])
+            frame.save(file_prefix + '_{}.tiff'.format(z))
+            label = Image.fromarray(I_[z,:,:])
+            label.save(file_prefix + '_{}_label.tiff'.format(z))
 
 def generate_spot(I, I_, NUM_FRAMES):
     max_brightness = 0
