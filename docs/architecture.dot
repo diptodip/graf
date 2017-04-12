@@ -1,0 +1,30 @@
+digraph architecture {
+node [shape="box3d"];
+input[label="image stack"];
+stack1[label="frame 1"];
+stack2[label="frame 2"]
+stackdots[label=". . ."];
+stackn[label="frame n"];
+conv[label="convolutions"];
+deconv[label="deconvolutions"];
+rnn[label="recurrent network"];
+out1[label="unique object centers in current frame"];
+out2[label="unique object centers in current frame"];
+outdots[label=". . ."];
+outn[label="unique object centers in current frame"];
+input -> stack1 [label="frame 1"];
+input -> stack2 [label="frame 2"];
+input -> stackdots;
+input -> stackn [label="frame n"];
+stack1 -> conv [label="frame 1"];
+stack2 -> conv [label="frame 2"];
+stackdots -> conv;
+stackn -> conv [label="frame n"];
+conv -> deconv;
+deconv -> rnn;
+rnn -> rnn;
+rnn -> out1 [label="frame 1"];
+rnn -> out2 [label="frame 2"];
+rnn -> outdots;
+rnn -> outn [label="frame n"];
+}
