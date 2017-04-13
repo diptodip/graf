@@ -23,6 +23,7 @@ def generate_image(file_prefix = 'test', save_images = False):
     for spot in range(NUM_SPOTS):
         generate_spot(I, I_, NUM_FRAMES)
     I = np.reshape(I, (NUM_FRAMES, GRID_SIZE, GRID_SIZE), order='A')
+    I_ = np.reshape(I_, (NUM_FRAMES, GRID_SIZE, GRID_SIZE), order='A')
     print(I.shape)
     print(NUM_SPOTS)
     if not save_images:
@@ -56,7 +57,7 @@ def generate_spot(I, I_, NUM_FRAMES):
     print((x, y, z))
     frame_radius = randint(9, 16)
     max_distance = sqrt(max_radius_x**2 + max_radius_y**2)
-    I_[z, x, y]  = 6000
+    I_[z, x, y]  = 1
     for i in range(-frame_radius, frame_radius):
         for j in range(-max_radius_x, max_radius_x):
             for k in range(-max_radius_y, max_radius_y):
