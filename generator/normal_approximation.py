@@ -35,6 +35,7 @@ def generate_image(file_prefix = 'test', save_images = False):
             frame.save(file_prefix + '_{}.tiff'.format(z))
             label = Image.fromarray(I_[z,:,:])
             label.save(file_prefix + '_{}_label.tiff'.format(z))
+    return (I, I_, NUM_FRAMES)
 
 def generate_spot(I, I_, NUM_FRAMES):
     """
