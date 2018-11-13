@@ -104,10 +104,11 @@ y_image = tf.nn.relu(convolve(h_unconv2, W_outconv) + b_outconv)
 y_png = tf.image.encode_png(tf.cast(tf.reshape(y_image, [32, 32, 1]) * 100, tf.uint8))
 y_flat = tf.reshape(y_image, [-1, 1024])
 
-# cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=y_, logits = y_flat))
-cross_entropy = tf.reduce_mean(tf.squared_difference(y_flat, tf.reshape(tf.image.per_image_standardization(tf.reshape(y_, [32, 32, 1])), [-1, 1024])))
+# loss_function = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=y_, logits = y_flat))
+# the above is an alternate loss function using cross entropy
+loss_function = tf.reduce_mean(tf.abs(tf.subtract(y_flat, 10000 * tf.reshape(tf.image.per_image_standardization(tf.reshape(y_, [32, 32, 1])), [-1, 1024]))))
 
-train_step = tf.train.AdamOptimizer(1e-4).minimize(cross_entropy)
+train_step = tf.train.AdamOptimizer(1e-4).minimize(loss_function)
 correct_prediction = tf.equal(tf.argmax(y_flat, axis=1), tf.argmax(y_, axis=1))
 accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float64))
 sess.run(tf.global_variables_initializer())
@@ -120,7 +121,7 @@ for i in range(100000):
     accuracies = []
     for j in range(num_frames):
         if i%100 == 0:
-            train_accuracy, loss, png = sess.run([accuracy, cross_entropy, y_png], feed_dict = {x: np.reshape(I[j,:,:], (1, 1024)), y_: np.reshape(I_[j,:,:], (1, 1024))})
+            train_accuracy, loss, png = sess.run([accuracy, loss_function, y_png], feed_dict = {x: np.reshape(I[j,:,:], (1, 1024)), y_: np.reshape(I_[j,:,:], (1, 1024))})
             # train_accuracy = accuracy.eval(feed_dict={x: np.reshape(I[j,:,:], (1, 1024)), y_: np.reshape(I_[j,:,:], (1, 1024))})
             print("frame %d: loss %f"%(j, loss))
             accuracies.append(train_accuracy)
