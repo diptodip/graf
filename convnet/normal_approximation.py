@@ -35,7 +35,7 @@ def generate_image(file_prefix = 'test', save_images = True):
             # label = Image.fromarray(I_[z,:,:])
             # label.save(file_prefix + '_{}_label.tiff'.format(z))
             cv2.imwrite(file_prefix + '_{}.tiff'.format(z), I[z,:,:])
-            cv2.imwrite(file_prefix + '_{}_label.tiff'.format(z), I_[z,:,: ])
+            cv2.imwrite(file_prefix + '_{}_label.tiff'.format(z), I_[z,:,:])
     return (I, I_, NUM_FRAMES)
 
 def generate_spot(I, I_, NUM_FRAMES):
@@ -74,6 +74,6 @@ def generate_spot(I, I_, NUM_FRAMES):
                 brightness *= (1 - distance/max_distance)
                 brightness *= (1 - abs(i) / frame_radius)
                 I[z + i, a, b] += brightness
-                I_[z + i, a, b]  = brightness * (1 - distance/max_distance)**2
+                I_[z + i, a, b]  = brightness * (1 - distance/max_distance)**4
 
 if __name__=='__main__': generate_image()
