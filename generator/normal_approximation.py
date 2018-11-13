@@ -4,12 +4,13 @@ from math import sqrt
 
 import numpy as np
 from PIL import Image
+import cv2
 
 GRID_SIZE = 32
 AVERAGE_BRIGHTNESS = 2500
 STDDEV = 250
 
-def generate_image(file_prefix = 'test', save_images = False):
+def generate_image(file_prefix = 'test', save_images = True):
     """
     Generate an image stack resembling a patch of a 3D image as found in
     smFISH microscopy and save it as a NumPy nd-array with a file name specified
@@ -24,17 +25,17 @@ def generate_image(file_prefix = 'test', save_images = False):
         generate_spot(I, I_, NUM_FRAMES)
     I = np.reshape(I, (NUM_FRAMES, GRID_SIZE, GRID_SIZE), order='A')
     I_ = np.reshape(I_, (NUM_FRAMES, GRID_SIZE, GRID_SIZE), order='A')
-    print(I.shape)
-    print(NUM_SPOTS)
     if not save_images:
         np.save(file_prefix, I)
         np.save(file_prefix + '_label', I_)
     else:
         for z in range(NUM_FRAMES):
-            frame = Image.fromarray(I[z,:,:])
-            frame.save(file_prefix + '_{}.tiff'.format(z))
-            label = Image.fromarray(I_[z,:,:])
-            label.save(file_prefix + '_{}_label.tiff'.format(z))
+            # frame = Image.fromarray(np.reshape(I[z,:,:], (32, 32)))
+            # frame.save(file_prefix + '_{}.tiff'.format(z))
+            # label = Image.fromarray(I_[z,:,:])
+            # label.save(file_prefix + '_{}_label.tiff'.format(z))
+            cv2.imwrite(file_prefix + '_{}.tiff'.format(z), I[z,:,:])
+            cv2.imwrite(file_prefix + '_{}_label.tiff'.format(z), I_[z,:,:])
     return (I, I_, NUM_FRAMES)
 
 def generate_spot(I, I_, NUM_FRAMES):
@@ -55,10 +56,8 @@ def generate_spot(I, I_, NUM_FRAMES):
     x = abs(min(int(round(np.random.normal(GRID_SIZE / 2.0, 0.3 * GRID_SIZE))), GRID_SIZE - 1))
     y = abs(min(int(round(np.random.normal(GRID_SIZE / 2.0, 0.3 * GRID_SIZE))), GRID_SIZE - 1))
     z = randint(0, NUM_FRAMES - 1)
-    print((x, y, z))
     frame_radius = randint(9, 16)
     max_distance = sqrt(max_radius_x**2 + max_radius_y**2)
-    I_[z, x, y]  = 1
     for i in range(-frame_radius, frame_radius):
         for j in range(-max_radius_x, max_radius_x):
             for k in range(-max_radius_y, max_radius_y):
@@ -75,5 +74,6 @@ def generate_spot(I, I_, NUM_FRAMES):
                 brightness *= (1 - distance/max_distance)
                 brightness *= (1 - abs(i) / frame_radius)
                 I[z + i, a, b] += brightness
+                I_[z + i, a, b]  = brightness * (1 - distance/max_distance)**4
 
 if __name__=='__main__': generate_image()
